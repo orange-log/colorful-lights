@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<meta name="viewport" content="width=device-width">
+	<style>
+		body {
+			margin: 0;
+		}
+		#color {
+			width: 100vw;
+			height: 100vh;
+			border: 0;
+			padding: 0;
+		}
+	</style>
+	<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			console.log('hallo');
+		    $('#color').change(function(e){
+		    	var hex = e.target.value;
+		    	$.ajax('http://192.168.0.14/?pin=RGB,'+hexToRgb(hex).r+','+hexToRgb(hex).g+','+hexToRgb(hex).b+'');
+		    });
+			function hexToRgb(hex) {
+			    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+			    return result ? {
+			        r: parseInt(result[1], 16),
+			        g: parseInt(result[2], 16),
+			        b: parseInt(result[3], 16)
+			    } : null;
+			}
+		});
+	</script>
+</head>
+<body>
+	<input id="color" type="color" name="favcolor" value="#000000">
+</body>
+</html>
