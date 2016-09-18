@@ -144,16 +144,17 @@ void colorfulLights(String sCmd)
     delay(iD2);
   }
 
-  if (iD3 > 0){
-    for (int zaehler=0; zaehler<pixelCount; zaehler = zaehler+1){
-      strip.SetPixelColor(zaehler, RgbColor(iR2,iG2,iB2));
+  for (int zaehler=0; zaehler<pixelCount; zaehler = zaehler+1){
+    strip.SetPixelColor(zaehler, RgbColor(iR2,iG2,iB2));
+    if (iD3 > 0){
       strip.Show();
       delay(iD3);
     }
+  }
+
+  if (iD4 > 0){
     strip.Show();
-    if (iD4 > 0){
-      delay(iD4);
-    }
+    delay(iD4);
   }
 }
 
