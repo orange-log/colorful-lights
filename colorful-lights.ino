@@ -115,8 +115,8 @@ void colorfulLights(String sCmd)
   String sD4 = getValue(sCmd, ',', 6);
 
   String sR2 = getValue(sCmd, ',', 7);
-  String sB2 = getValue(sCmd, ',', 8);
-  String sG2 = getValue(sCmd, ',', 9);
+  String sG2 = getValue(sCmd, ',', 8);
+  String sB2 = getValue(sCmd, ',', 9);
 
   int iR = sR.toInt();
   int iG = sG.toInt();
