@@ -21,7 +21,7 @@
 			console.log('hallo');
 		    $('#color').change(function(e){
 		    	var hex = e.target.value;
-		    	$.ajax('http://192.168.0.14/?pin=RGB,'+hexToRgb(hex).r+','+hexToRgb(hex).g+','+hexToRgb(hex).b+'');
+		    	$.ajax('http://192.168.0.14/?pin='+hexToRgb(hex).r+','+hexToRgb(hex).g+','+hexToRgb(hex).b+'');
 		    });
 			function hexToRgb(hex) {
 			    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);

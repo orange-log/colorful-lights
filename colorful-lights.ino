@@ -28,21 +28,11 @@ const char* password = "123";  // WLAN Password
 
 const int pixelCount = 70;  //Anzahl LED
 const int ledPort = 2;  // Ausgabeport
-const int colorSaturation = 255;
 
 unsigned long ulReqcount;
 unsigned long ulReconncount;
 
 NeoPixelBus strip = NeoPixelBus(pixelCount, ledPort);
-
-RgbColor red = RgbColor(colorSaturation, 0, 0);
-RgbColor green = RgbColor(0, colorSaturation, 0);
-RgbColor blue = RgbColor(0, 0, colorSaturation);
-RgbColor white = RgbColor(colorSaturation);
-RgbColor yellow = RgbColor(colorSaturation, colorSaturation, 0);
-RgbColor pink = RgbColor(colorSaturation, 0, colorSaturation);
-RgbColor cyan = RgbColor(0, colorSaturation, colorSaturation);
-RgbColor black = RgbColor(0);
 
 String config = "";
 
@@ -115,59 +105,56 @@ String getValue(String data, char separator, int index)
 }
 void colorfulLights(String sCmd)
 {
-  RgbColor color = white;
+  String sR = getValue(sCmd, ',', 0);
+  String sG = getValue(sCmd, ',', 1);
+  String sB = getValue(sCmd, ',', 2);
 
-  String sR = getValue(sCmd, ',', 1);
-  String sG = getValue(sCmd, ',', 2);
-  String sB = getValue(sCmd, ',', 3);
+  String sD1 = getValue(sCmd, ',', 3);
+  String sD2 = getValue(sCmd, ',', 4);
+  String sD3 = getValue(sCmd, ',', 5);
+  String sD4 = getValue(sCmd, ',', 6);
+
+  String sR2 = getValue(sCmd, ',', 7);
+  String sB2 = getValue(sCmd, ',', 8);
+  String sG2 = getValue(sCmd, ',', 9);
+
   int iR = sR.toInt();
   int iG = sG.toInt();
   int iB = sB.toInt();
 
-  String sDelay = getValue(sCmd, ';', 1);
-  int iDelay = 1000;
-  if(sDelay != "") {
-    iDelay = sDelay.toInt();
-  }
+  int iD1 = sD1.toInt();
+  int iD2 = sD2.toInt();
+  int iD3 = sD3.toInt();
+  int iD4 = sD4.toInt();
 
-  if(sCmd.indexOf("RGB")>=0) {
-    color = RgbColor(iR,iG,iB);
-  }
-  else if(sCmd.indexOf("RED")>=0){
-    color = red;
-  }
-  else if(sCmd.indexOf("GREEN")>=0){
-    color = green;
-  }
-  else if(sCmd.indexOf("BLUE")>=0){
-    color = blue;
-  }
-  else if(sCmd.indexOf("WHITE")>=0){
-    color = white;
-  }
-  else if(sCmd.indexOf("YELLOW")>=0){
-    color = yellow;
-  }
-  else if(sCmd.indexOf("PINK")>=0){
-    color = pink;
-  }
-  else if(sCmd.indexOf("CYAN")>=0){
-    color = cyan;
-  }
-  else if(sCmd.indexOf("BLACK")>=0){
-    color = black;
-  }
+  int iR2 = sR2.toInt();
+  int iG2 = sG2.toInt();
+  int iB2 = sB2.toInt();
 
   for (int zaehler=0; zaehler<pixelCount; zaehler = zaehler+1){
-    strip.SetPixelColor(zaehler, color);
-    if(sCmd.indexOf("WAVE")>=0) {
+    strip.SetPixelColor(zaehler, RgbColor(iR,iG,iB));
+    if (iD1 > 0){
       strip.Show();
-      delay(iDelay);
+      delay(iD1);
     }
   }
 
   strip.Show();
-  delay(iDelay);
+  if (iD2 > 0){
+    delay(iD2);
+  }
+
+  if (iD3 > 0){
+    for (int zaehler=0; zaehler<pixelCount; zaehler = zaehler+1){
+      strip.SetPixelColor(zaehler, RgbColor(iR2,iG2,iB2));
+      strip.Show();
+      delay(iD3);
+    }
+    strip.Show();
+    if (iD4 > 0){
+      delay(iD4);
+    }
+  }
 }
 
 void loop()
