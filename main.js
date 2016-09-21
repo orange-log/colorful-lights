@@ -22,7 +22,7 @@ $(function() {
     $(this).attr('data-val', d);
     sendRequest(r,g,b,r2,g2,b2,d);
   });
-  function sendRequest(r,g,b,d1,d2,d3,d4,r2,g2,b2){
+  function sendRequest(r,g,b,r2,g2,b2,d){
     $.ajax('http://ES-101/?pin='+r+','+g+','+b+','+r2+','+g2+','+b2+','+d);
   }
   function hexToRgb(hex) {
