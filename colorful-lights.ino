@@ -22,12 +22,19 @@ Arduino, Raspberry etc.
 
 #include <ESP8266WiFi.h>
 #include <NeoPixelBus.h>
+#include <ssid.h>
 
-const char* ssid = "abc";  // WLAN SSID
-const char* password = "123";  // WLAN Password
+#ifdef ESP8266
+extern "C" {
+#include "user_interface.h"
+}
+#endif
 
 const int pixelCount = 70;  //Anzahl LED
 const int ledPort = 2;  // Ausgabeport
+
+String hstname = "ESP-101";  //Hostname des ESP
+char* ourname = &hstname[0];
 
 unsigned long ulReqcount;
 unsigned long ulReconncount;
@@ -41,6 +48,12 @@ WiFiServer server(80);
 
 void setup()
 {
+
+  //setting Hostname - sdk, non-Arduino function
+  #ifdef ESP8266
+    wifi_station_set_hostname(ourname);
+  #endif
+
   // setup globals
   ulReqcount=0;
   ulReconncount=0;
@@ -109,52 +122,46 @@ void colorfulLights(String sCmd)
   String sG = getValue(sCmd, ',', 1);
   String sB = getValue(sCmd, ',', 2);
 
-  String sD1 = getValue(sCmd, ',', 3);
-  String sD2 = getValue(sCmd, ',', 4);
-  String sD3 = getValue(sCmd, ',', 5);
-  String sD4 = getValue(sCmd, ',', 6);
+  String sR2 = getValue(sCmd, ',', 3);
+  String sG2 = getValue(sCmd, ',', 4);
+  String sB2 = getValue(sCmd, ',', 5);
 
-  String sR2 = getValue(sCmd, ',', 7);
-  String sG2 = getValue(sCmd, ',', 8);
-  String sB2 = getValue(sCmd, ',', 9);
+  String sD = getValue(sCmd, ',', 6);
 
   int iR = sR.toInt();
   int iG = sG.toInt();
   int iB = sB.toInt();
 
-  int iD1 = sD1.toInt();
-  int iD2 = sD2.toInt();
-  int iD3 = sD3.toInt();
-  int iD4 = sD4.toInt();
-
   int iR2 = sR2.toInt();
   int iG2 = sG2.toInt();
   int iB2 = sB2.toInt();
 
+  int iD = sD.toInt();
+
   for (int zaehler=0; zaehler<pixelCount; zaehler = zaehler+1){
     strip.SetPixelColor(zaehler, RgbColor(iR,iG,iB));
-    if (iD1 > 0){
+    if (iD > 0){
       strip.Show();
-      delay(iD1);
+      delay(iD);
     }
   }
 
   strip.Show();
-  if (iD2 > 0){
-    delay(iD2);
+  if (iD > 0){
+    delay(iD * 10);
   }
 
   for (int zaehler=0; zaehler<pixelCount; zaehler = zaehler+1){
     strip.SetPixelColor(zaehler, RgbColor(iR2,iG2,iB2));
-    if (iD3 > 0){
+    if (iD > 0){
       strip.Show();
-      delay(iD3);
+      delay(iD);
     }
   }
 
-  if (iD4 > 0){
+  if (iD > 0){
     strip.Show();
-    delay(iD4);
+    delay(iD * 10);
   }
 }
 

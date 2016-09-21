@@ -1,16 +1,25 @@
 # colorful-lights
 
-http://host/?pin=r,g,b,d1,d2,d3,d4,r2,g2,b2
+
+##API
+
+http://host/?pin=r,g,b,r2,g2,b2,d
 
 r = rot
 g = grün
 b = blau
-d1 = delay1
-d2 = delay2
-d3 = delay3
-d4 = delay4
-r2 = rot
-g2 = grün
-b2 = blau
+r2 = rot2
+g2 = grün3
+b2 = blau4
+d = delay
 
-zb. http://192.168.0.14/?pin=255,255,255,100,100,100,100,255,0,255
+
+##config
+
+
+###../libraries/ssid/ssid.h:
+
+```
+const char* ssid = "abc";  // WLAN SSID
+const char* password = "123";  // WLAN Password
+```
