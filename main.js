@@ -23,7 +23,7 @@ $(function() {
     sendRequest(r,g,b,r2,g2,b2,d);
   });
   function sendRequest(r,g,b,r2,g2,b2,d){
-    $.ajax('http://ES-101/?pin='+r+','+g+','+b+','+r2+','+g2+','+b2+','+d);
+    $.ajax('http://ESP-101/?pin='+r+','+g+','+b+','+r2+','+g2+','+b2+','+d);
   }
   function hexToRgb(hex) {
       var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
